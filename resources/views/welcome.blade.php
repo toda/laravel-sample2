@@ -930,13 +930,38 @@
                                     Dashboard
                                 </a>
                             @else
-                                <a href="{{ route('login') }}"
-                                    class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white">
-                                    Log in
-                                </a>
-
+                                @if (request()->is('owner*'))
+                                    <a href="{{ route('owner.login') }}"
+                                        class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white">
+                                        Log in
+                                    </a>
+                                @elseif (request()->is('admin*'))
+                                    <a href="{{ route('admin.login') }}"
+                                        class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white">
+                                        Log in
+                                    </a>
+                                @else
+                                    <a href="{{ route('login') }}"
+                                        class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white">
+                                        Log in
+                                    </a>
+                                @endif
                                 @if (Route::has('register'))
-                                    <a href="{{ route('register') }}"
+                                    @if (request()->is('owner*'))
+                                        @php
+                                            $redirectRoute = 'owner.register';
+                                        @endphp
+                                    @elseif (request()->is('admin*'))
+                                        @php
+                                            $redirectRoute = 'admin.register';
+                                        @endphp
+                                    @else
+                                        @php
+                                            $redirectRoute = 'register';
+                                        @endphp
+                                    @endif
+
+                                    <a href="{{ route($redirectRoute) }}"
                                         class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white">
                                         Register
                                     </a>
