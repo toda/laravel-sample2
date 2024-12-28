@@ -11,19 +11,19 @@ return Application::configure(basePath: dirname(__DIR__))
         commands: __DIR__ . '/../routes/console.php',
         health: '/up',
         then: function () {
-            Route::prefix('/user')
-                // ->as('user.')
+            Route::prefix('user')
+                ->as('user.')
                 ->name('user.')
                 ->middleware('web')
                 ->group(__DIR__ . '/../routes/web.php');
             Route::prefix('owner')
                 ->middleware('web')
-                // ->as('owner.')
+                ->as('owner.')
                 ->name('owner.')
                 ->group(__DIR__ . '/../routes/owner.php');
             Route::prefix('admin')
                 ->middleware('web')
-                // ->as('admin.')
+                ->as('admin.')
                 ->name('admin.')
                 ->group(__DIR__ . '/../routes/admin.php');
         },
